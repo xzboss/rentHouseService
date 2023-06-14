@@ -17,6 +17,14 @@ class CRUDProvider<T> {
 			return error
 		}
 	}
+	//查
+	async findOne(query: FilterQuery<T>, projection?: any, options?: QueryOptions): Promise<any> {
+		try {
+			return await this.model.findOne(query, projection, options)
+		} catch (error) {
+			return error
+		}
+	}
 	//加
 	async increment(input: T) {
 		try {

@@ -5,6 +5,8 @@ import router from '../router'
 import path from 'path'
 import { expressjwt } from 'express-jwt'
 import config from '../config'
+import { CODE } from '../constants'
+
 const { secretKey } = config
 function initMiddleware(app: Express) {
   app.use(express.json())
@@ -17,6 +19,12 @@ function initMiddleware(app: Express) {
     }).unless({ path: [/login/, /incrementUser/, /getAllListing/, /findListing/] })
   )
   app.use('/api', router)
+  app.use((err: any, req: any, res: any, next: any) => {
+    if (err.name === 'UnauthorizedError') {
+      res.status(CODE.SUCCESS).send({ code: 401, message: "Token验证失败" })
+    }
+    next()
+  })
 }
 
 export default initMiddleware

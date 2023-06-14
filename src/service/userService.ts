@@ -8,23 +8,26 @@ import dayjs from 'dayjs'
 import { userDao } from '../utils/crudProvider'
 import config from '../config'
 import { ALREADYEXISTS } from '../constants'
-import { resData } from '../utils'
 const { secretKey, token_expire_at } = config
 export default {
 	login: async (email: any, password: any) => {
-		const userDetail = await userDao.find({ email })
-		if (!userDetail.length) return resData(401, '用户不存在')
+		const userDetail = await userDao.findOne({ email })
+		if (!userDetail) return false
 		//验证密码
-		const valid = await bcrypt.compare(password, userDetail[0].hashPassword)
-		if (!valid) return resData(401, '密码错误')
+		const valid = await bcrypt.compare(password, userDetail.hashPassword)
+		if (!valid) return false
 		//生成签证
 		const token = jwt.sign({
-			email: userDetail[0].email,
-			hashPassword: userDetail[0].hashPassword
+			_id: userDetail._id,
+			email: userDetail.email
 		},
 			secretKey,
 			{ expiresIn: token_expire_at })
-		return token
+		userDetail.hashPassword = undefined
+		return { token, userDetail }
+	},
+	verifyToken: async (_id: any) => {
+		return await userDao.findOne({ _id })
 	},
 	increment: async (email: string, password: string) => {
 		const ed = await userDao.find({ email })

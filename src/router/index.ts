@@ -3,7 +3,7 @@ import express from 'express'
 
 import listingHandler from '../controller/listingRouterHandler'
 import userHandler from '../controller/userRouterHandler'
-
+import { CODE } from '../constants'
 
 const router = express.Router()
 
@@ -21,7 +21,7 @@ router.delete('/removeListing', listingHandler.remove)
 //user
 router.post('/incrementUser', userHandler.increment)
 router.post('/login', userHandler.login)
-
+router.get('/verifyToken', userHandler.verifyToken)
 
 
 //account

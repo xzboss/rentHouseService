@@ -13,6 +13,14 @@ export const resSuccess = {
 export const FINDNOTHING = 'findNothing'
 export const ALREADYEXISTS = 'alreadyExists'
 export const CODE = {
+  SUCCESS: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHENTICATED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+};
 /*   
 200 OK：表示请求成功，服务器已成功处理了请求并返回了响应数据。
 201 Created：表示请求成功，服务器已成功创建了新的资源。
@@ -24,4 +32,3 @@ export const CODE = {
 405 Method Not Allowed：表示请求失败，客户端使用了不支持的 HTTP 方法。
 500 Internal Server Error：表示请求失败，服务器在处理请求时发生了未知的错误。
  */
-}
