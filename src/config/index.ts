@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs'
 const obj = {
 	salt: bcrypt.genSaltSync(10),
-	port: 9999,
+	port: 1234,
 	logoUrl: 'http://942875315.hkfree.work/logo.png',
 	dbUri: 'mongodb://127.0.0.1:27017/rentHouse',
 	dbUser: 'root',

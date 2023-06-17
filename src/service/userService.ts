@@ -8,6 +8,8 @@ import dayjs from 'dayjs'
 import { userDao } from '../utils/crudProvider'
 import config from '../config'
 import { ALREADYEXISTS } from '../constants'
+import { resData } from '../utils'
+import { CODE } from '../constants'
 const { secretKey, token_expire_at } = config
 export default {
 	login: async (email: any, password: any) => {
@@ -27,14 +29,18 @@ export default {
 		return { token, userDetail }
 	},
 	verifyToken: async (_id: any) => {
-		return await userDao.findOne({ _id })
+		const user = await userDao.findOne({ _id })
+		user.hashPassword = undefined
+		return user
 	},
-	increment: async (email: string, password: string) => {
+	increment: async (name: string, email: string, password: string) => {
 		const ed = await userDao.find({ email })
-		if (ed.length) return ALREADYEXISTS
+		if (ed.length) return resData(CODE.CONFLICT, ALREADYEXISTS)
 		//加密
 		const hashPassword = await bcrypt.hash(password, config.salt)
-		return await userDao.increment({ email, hashPassword } as any)
+		const user = await userDao.increment({ name, email, hashPassword } as any)
+		user.hashPassword = undefined
+		return resData(CODE.SUCCESS, '成功注册', user)
 	},
 	update: async (query: FilterQuery<UserDocument>, update: UpdateQuery<UserDocument>, options?: QueryOptions) => {
 

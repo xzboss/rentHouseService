@@ -6,6 +6,7 @@ import path from 'path'
 import { expressjwt } from 'express-jwt'
 import config from '../config'
 import { CODE } from '../constants'
+import { resData } from '../utils'
 
 const { secretKey } = config
 function initMiddleware(app: Express) {
@@ -21,7 +22,7 @@ function initMiddleware(app: Express) {
   app.use('/api', router)
   app.use((err: any, req: any, res: any, next: any) => {
     if (err.name === 'UnauthorizedError') {
-      res.status(CODE.SUCCESS).send({ code: 401, message: "Token验证失败" })
+      res.send(resData(CODE.UNAUTHENTICATED, "Token验证失败"))
     }
     next()
   })
