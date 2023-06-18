@@ -22,6 +22,7 @@ router.delete('/removeListing', listingHandler.remove)
 router.post('/incrementUser', userHandler.increment)
 router.post('/login', userHandler.login)
 router.get('/verifyToken', userHandler.verifyToken)
+router.post('/updateUser', userHandler.update)
 
 
 //account

@@ -9,8 +9,11 @@ initMiddleware(app)
 const serve = app.listen(port, () => {
 	dbConnect()
 })
-process.on('close', () => {
+process.on('SIGTERM', () => {
 	dbDisconnect()
-	serve.close()
-	process.exit(0)
+	serve.close(() => {
+		console.log('server close')
+		process.exit(0)
+	})
+
 })

@@ -41,6 +41,14 @@ class CRUDProvider<T> {
 			return error
 		}
 	}
+	//更新
+	async updateOne(query: FilterQuery<T>, update: UpdateQuery<T>, options?: QueryOptions) {
+		try {
+			return await this.model.updateOne(query, update, options)
+		} catch (error) {
+			return error
+		}
+	}
 	//删除
 	async remove(query: FilterQuery<T>) {
 		try {

@@ -43,7 +43,7 @@ export default {
 		return resData(CODE.SUCCESS, '成功注册', user)
 	},
 	update: async (query: FilterQuery<UserDocument>, update: UpdateQuery<UserDocument>, options?: QueryOptions) => {
-
+		return await userDao.updateOne(query, update)
 	},
 	remove: async (query: FilterQuery<UserDocument>) => {
 

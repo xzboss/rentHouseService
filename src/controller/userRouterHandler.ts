@@ -2,7 +2,8 @@
 import userService from '../service/userService'
 import { CODE } from '../constants'
 import { resData } from '../utils'
-const { SUCCESS, UNAUTHENTICATED, FORBIDDEN } = CODE
+import { BADFAMILY } from 'dns'
+const { SUCCESS, UNAUTHENTICATED, FORBIDDEN, BAD_REQUEST } = CODE
 export default {
 	login: async (req: any, res: any) => {
 		const { email, password } = req.body
@@ -21,6 +22,10 @@ export default {
 		res.send(await userService.increment(name, email, password))
 	},
 	update: async (req: any, res: any) => {
+		const { body } = req
+		const tip: any = await userService.update({ _id: body._id }, body)
+		if (tip['acknowledged']) return res.send(resData(SUCCESS, '喜欢成功', tip))
+		res.send(resData(BAD_REQUEST, '没有用户或没有房源', tip))
 	},
 	remove: async (req: any, res: any) => {
 	}
