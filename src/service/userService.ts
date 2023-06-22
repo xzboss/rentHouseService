@@ -30,12 +30,12 @@ export default {
 	},
 	verifyToken: async (_id: any) => {
 		const user = await userDao.findOne({ _id })
-		user.hashPassword = undefined
+		if (user) user.hashPassword = undefined
 		return user
 	},
 	increment: async (name: string, email: string, password: string) => {
 		const ed = await userDao.find({ email })
-		if (ed.length) return resData(CODE.CONFLICT, ALREADYEXISTS)
+		if (ed.length) return resData(CODE.CONFLICT, '你已经注册了')
 		//加密
 		const hashPassword = await bcrypt.hash(password, config.salt)
 		const user = await userDao.increment({ name, email, hashPassword } as any)
@@ -44,6 +44,14 @@ export default {
 	},
 	update: async (query: FilterQuery<UserDocument>, update: UpdateQuery<UserDocument>, options?: QueryOptions) => {
 		return await userDao.updateOne(query, update)
+	},
+	getTrips: async (query: any) => {
+	},
+	getFavorites: async (query: any) => {
+	},
+	getReservations: async (query: any) => {
+	},
+	getMyListings: async (query: any) => {
 	},
 	remove: async (query: FilterQuery<UserDocument>) => {
 

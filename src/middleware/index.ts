@@ -17,7 +17,7 @@ function initMiddleware(app: Express) {
     expressjwt({
       secret: secretKey,
       algorithms: ["HS256"]
-    }).unless({ path: [/login/, /incrementUser/, /getAllListing/, /findListing/] })
+    }).unless({ path: [/login/, /incrementUser/, /getAllListing/, /findListing/, /findReservationsByListingId/] })
   )
   app.use('/api', router)
   app.use((err: any, req: any, res: any, next: any) => {

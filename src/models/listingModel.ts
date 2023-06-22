@@ -40,7 +40,7 @@ const listingSchema = new Schema(
 		price: Number,
 		reservations: [ObjectId],
 		validRange: [{ type: Date, default: Date.now() }, { type: Date, require: true }],
-		locationValue: String
+		locationValue: String,
 	},
 	{
 		timestamps: true,
