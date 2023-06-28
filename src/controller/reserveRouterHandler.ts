@@ -11,6 +11,7 @@ export default {
 	},
 	update: async (req: any, res: any) => {
 	},
-	remove: async (req: any, res: any) => {
+	removeById: async (req: any, res: any) => {
+		res.send(await reserveService.removeById(req.auth,req.body))
 	}
 }

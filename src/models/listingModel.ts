@@ -3,7 +3,7 @@ import { Document, Schema, Types, model } from 'mongoose'
 
 import config from '../config'
 
-const { logoUrl } = config
+const { imgBaseUrl } = config
 
 const ObjectId = Types.ObjectId
 // 模板接口
@@ -28,7 +28,7 @@ const listingSchema = new Schema(
 	{
 		title: String,
 		description: String,
-		imageSrc: { type: String, default: logoUrl },
+		imageSrc: { type: String, default: imgBaseUrl },
 		createdAt: { type: Date, default: Date.now() },
 		updatedAt: { type: Date, default: Date.now() },
 		category: { type: String, default: '沙滩' },

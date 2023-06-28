@@ -36,13 +36,23 @@ export default {
 		}
 		const reservation = await reserveDao.increment(input)
 		await listingDao.updateOne({ _id: listingId }, { "$push": { reservations: reservation._id } })
-		await userDao.updateOne({ _id: userId }, { "$push": { reservations: reservation._id } })
-		return resData(CODE.SUCCESS, '预定成功')
+		//前端已做，对于用户本人信息的更新都交由前端单独处理
+		//await userDao.updateOne({ _id: userId }, { "$push": { reservations: reservation._id } })
+		return resData(CODE.SUCCESS, '预定成功', reservation)
 
 	},
 	update: async (query: FilterQuery<ReserveDocument>, update: UpdateQuery<ReserveDocument>, options?: QueryOptions) => {
 
 	},
-	remove: async (query: FilterQuery<ReserveDocument>) => {
+	removeById: async (auth: any, { listingId, reservationId, reserveBy }: any) => {
+		//判断当前用户是取消自己预定别人的房源，还是取消别人预定自己的房源
+		if (auth._id !== reserveBy) {
+			//取消别人预定自己的房源
+			await userDao.updateOne({ _id: reserveBy }, { '$pull': { reservations: reservationId } })
+		}
+		await listingDao.updateOne({ _id: listingId }, { '$pull': { reservations: reservationId } })
+		const res = await reserveDao.remove({ _id: reservationId }) as any
+		if (res.deletedCount) return resData(CODE.SUCCESS, 'success remove', res)
+		return resData(CODE.NOT_FOUND, 'NOT_FOUND', res)
 	}
 }

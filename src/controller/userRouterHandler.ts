@@ -5,6 +5,9 @@ import { resData } from '../utils'
 import { BADFAMILY } from 'dns'
 const { SUCCESS, UNAUTHENTICATED, FORBIDDEN, BAD_REQUEST } = CODE
 export default {
+	findOne: async (req: any, res: any) => {
+		res.send(await userService.findOne(req.query.userId))
+	},
 	login: async (req: any, res: any) => {
 		const { email, password } = req.body
 		const data = await userService.login(email, password)

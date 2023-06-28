@@ -12,12 +12,22 @@ const { secretKey } = config
 function initMiddleware(app: Express) {
   app.use(express.json())
   app.use(responseHeader)
-  app.use('/imgs', express.static(path.join(__dirname, '../../public/imgs')));
+  app.use('/imgs', express.static(path.join(__dirname, '../../public/imgs')))
+
   app.use(
     expressjwt({
       secret: secretKey,
       algorithms: ["HS256"]
-    }).unless({ path: [/login/, /incrementUser/, /getAllListing/, /findListing/, /findReservationsByListingId/] })
+    }).unless({
+      path: [
+        /login/,
+        /incrementUser/,
+        /getAllListing/,
+        /findListing/,
+        /findReservationsByListingId/,
+        /findUserById/,
+        /getReservedRanges/]
+    })
   )
   app.use('/api', router)
   app.use((err: any, req: any, res: any, next: any) => {
