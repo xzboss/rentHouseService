@@ -14,7 +14,7 @@ module.exports = {
   },
   // 注册插件
   plugins: ['@typescript-eslint', 'prettier'],
-  // 规则 根据自己需要增加
+  // 规则 
   rules: {
     'no-var': 'error',
     'no-undef': 0,

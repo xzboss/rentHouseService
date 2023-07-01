@@ -31,7 +31,7 @@ const listingSchema = new Schema(
 		imageSrc: { type: String, default: imgBaseUrl },
 		createdAt: { type: Date, default: Date.now() },
 		updatedAt: { type: Date, default: Date.now() },
-		category: { type: String, default: '沙滩' },
+		category: { type: String, default: 'Desert' },
 		roomCount: { type: Number, default: 1 },
 		bathRoomCount: { type: Number, default: 1 },
 		guestCount: { type: Number, default: 1 },

@@ -4,7 +4,7 @@ const obj = {
 	port: 8800,
 	imgBaseUrl: 'http://127.0.0.1:8800/imgs/',
 	logoUrl: 'http://942875315.hkfree.work/logo.png',
-	dbUri: 'mongodb://127.0.0.1:27017/rentHouse',
+	dbUrl: 'mongodb+srv://xu:123@cluster0.il4ffra.mongodb.net/?retryWrites=true&w=majority',
 	dbUser: 'root',
 	dbPassword: 'admin123',
 	dbAuthSource: 'admin',

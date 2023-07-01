@@ -52,6 +52,11 @@ export default {
 		//前端已做，对于用户本人信息的更新都交由前端单独处理
 		//await userDao.updateOne({ _id: input.userId }, { listings: { '$push': input._id } })
 		try {
+			//发布房源，将起始时间调到凌晨,因为默认预定时间为下午2点开始，
+			//防止2点之后发布的房源，顾客不能在2点之后预定发布当天房源
+			if (input.validRange) {
+				input.validRange[0] = dayjs(input.validRange[0]).hour(1).toDate()
+			}
 			const res = await listingDao.increment(input)
 			return resData(CODE.SUCCESS, 'success', res)
 		} catch (error) {
@@ -69,8 +74,16 @@ export default {
 		}
 	},
 	removeById: async (_id: string) => {
-		const res = await listingDao.remove({ _id }) as any
-		if (res.deletedCount) return resData(CODE.SUCCESS, 'success remove', res)
-		return resData(CODE.NOT_FOUND, 'not found', res)
+		try {
+			//删除房源应该删除与房源相关的预定信息和预定了此房源用户的预定信息和图片
+			//但后续想做预定记录或者再次发布，就没先暂停此功能，只做了简单的删除
+			const res = await listingDao.remove({ _id }) as any
+			await reserveDao.remove({ listingId: _id })
+			if (res.deletedCount) return resData(CODE.SUCCESS, 'success remove', res)
+			return resData(CODE.NOT_FOUND, 'not found', res)
+		} catch (error) {
+			return resData(CODE.INTERNAL_SERVER_ERROR, 'server err')
+		}
+
 	}
 }
