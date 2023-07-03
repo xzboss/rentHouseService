@@ -4,6 +4,8 @@ pnpm dev
 # nodejs + ts + express + mongodbAltas
 
 ## 功能
+- 数据库连接工具mongoose
+- 日期处理工具dayjs
 - 基于 jsonwebtoken + express-jwt 进行token生成与验证
 - mvc模式
 - 代码约束eslint
