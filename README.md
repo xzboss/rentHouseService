@@ -1,5 +1,5 @@
 pnpm dev 
-## 上线地址 http://115.159.222.245:8000 或 http://www.52xu.top
+## 上线地址 http://115.159.222.245 或 http://www.52xu.top
 # rentHouseService HavenRent后端
 # nodejs + ts + express + mongodbAltas
 
