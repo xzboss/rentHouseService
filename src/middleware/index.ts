@@ -21,6 +21,7 @@ function initMiddleware(app: Express) {
     }).unless({
       path: [
         /login/,
+        /OAuthConfig/,
         /incrementUser/,
         /getAllListing/,
         /findListing/,
