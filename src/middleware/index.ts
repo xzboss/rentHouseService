@@ -27,7 +27,8 @@ function initMiddleware(app: Express) {
         /findListing/,
         /findReservationsByListingId/,
         /findUserById/,
-        /getReservedRanges/]
+        /getReservedRanges/,
+        /OAuth/]
     })
   )
   app.use('/api', router)

@@ -5,6 +5,7 @@ import multer from 'multer'
 import listingHandler from '../controller/listingRouterHandler'
 import userHandler from '../controller/userRouterHandler'
 import reserveHandler from '../controller/reserveRouterHandler'
+import OAuthHandler from '../controller/OAuthRouterHandler'
 import { CODE } from '../constants'
 import { resData } from '../utils'
 import config from '../config'
@@ -24,10 +25,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 // OAuth-config
-router.use('/OAuthConfig', (req, res) => {
+router.get('/OAuthConfig', (req, res) => {
 	res.send(resData(CODE.SUCCESS, '', config.OAuth))
 })
+router.get('/OAuth', OAuthHandler.getAccessToken)
 
+
+//img
 router.use('/uploadImg', upload.any(), (req, res) => {
 	/* if (req.files)  */
 	res.send(resData(CODE.SUCCESS, '图片上传成功', req.body.imageSrc))
