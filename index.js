@@ -16,7 +16,21 @@ const obj = {
     token_expire_at: 60 * 60 * 24 * 1,
     access_token_expire_at: 60 * 20 * 1 * 1,
     refresh_token_expire_at: 60 * 60 * 24 * 30,
-    secretKey: 'xzboss'
+    secretKey: 'xzboss',
+    OAuthSecret: 'c2a55e0161d074de1564445f0c410b747f198a2e',
+    OAuth: {
+        client_home: 'http://115.159.222.245/all',
+        github: {
+            //文档：https://docs.github.com/zh/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#1-request-a-users-github-identity
+            url: 'https://github.com/login/oauth/authorize',
+            getOAuthTokenUrl: 'https://github.com/login/oauth/access_token',
+            resource_url: 'https://api.github.com/user',
+            client_id: '2fd366289e12b712a229',
+            redirect_uri: 'http://115.159.222.245:5000/api/OAuth',
+            state: 'xzboss', // TODO
+        },
+        google: {}
+    }
 };
 exports.default = obj;
 //const PORT = config.get<number>('port')
